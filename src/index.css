@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .card-one {
+  background-color: rgba(0, 235, 199, 0.3);
+  color: rgb(0, 235, 199);
+  font-weight: bold;
+} */
+.card-two {
+  background-color: rgba(140, 120, 81, 1);
+  color: rgb(255, 255, 254);
+  font-weight: bold;
+}
+/* .card-three {
+  background-color: rgba(0, 33, 77, 0.7);
+  color: rgb(255, 255, 254);
+  font-weight: bold;
+} */
+/* .card-four {
+  background-color: rgba(27, 45, 69, 0.7);
+  color: rgb(255, 255, 254);
+  font-weight: bold;
+} */
+/* .card-five {
+  background-color: rgba(0, 235, 199, 0.1);
+  color: rgb(0, 235, 199);
+  font-weight: bold;
+} */
