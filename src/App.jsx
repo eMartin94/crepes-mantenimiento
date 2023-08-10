@@ -9,6 +9,8 @@ import CreateProduct from './pages/Product/CreateProduct';
 import UpdateProduct from './pages/Product/UpdateProduct';
 import AdminProtectedRoutes from './AdminProtectedRoutes';
 import Sidebar from './components/Sidebar';
+import CategoryPage from './pages/CategoryPage';
+import ShoppingCart from './pages/ShoppingCart';
 
 export default function App() {
   return (
@@ -25,6 +27,8 @@ export default function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path='/' element={<Home />} />
               <Route path='/product' element={<ProductPage />} />
+              <Route path='/category' element={<CategoryPage />} />
+              <Route path='/cart' element={<ShoppingCart />} />
               <Route path='/profile' element={<ProfilePage />} />
             </Route>
             <Route element={<AdminProtectedRoutes />}>

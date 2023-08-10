@@ -8,6 +8,7 @@ import Input from '../../components/forms/Input';
 import Modal from '../../components/modals/Modal';
 import AlertSuccess from '../../components/modals/AlertSuccess';
 import AlertDanger from '../../components/modals/AlertDanger';
+import SelectCategory from '../../components/forms/SelectCategory';
 
 const UpdateProduct = () => {
   const { productId } = useParams();
@@ -81,7 +82,7 @@ const UpdateProduct = () => {
     data.precio = parseFloat(data.precio);
     data.ingredientes = ingredientList.toString();
     data.disponible = isDisponible;
-    if (!categorias) {
+    if (!categorias === 'Seleccionar categoría') {
       setCategoriaError('El campo categoría es requerido');
       return;
     }
@@ -89,10 +90,11 @@ const UpdateProduct = () => {
     try {
       await updateProductById(productId, data);
       setRedirecting(true);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
+    reset();
   };
 
   const agregarIngrediente = (e) => {
@@ -115,6 +117,7 @@ const UpdateProduct = () => {
 
   const handleConfirm = () => {
     navigate('/product');
+    reset();
   };
 
   const handleCancelClick = () => {
@@ -125,7 +128,7 @@ const UpdateProduct = () => {
   };
 
   return (
-    <div className='flex flex-wrap justify-center pt-2'>
+    <div className='flex flex-wrap justify-center py-8 animate-zoom-in'>
       <div className='bg-primary-10 shadow-md rounded px-8 pt-6 pb-8 w-full'>
         <h4 className='text-2xl font-bold mb-4 uppercase text-complementary-100'>
           editar producto
@@ -141,6 +144,8 @@ const UpdateProduct = () => {
                 errors={errors}
                 isRequired={true}
                 defaultValue={getValues('nombre')}
+                setValue={setValue}
+                className='capitalize'
               />
               {/* Product Description */}
               <Input
@@ -150,15 +155,18 @@ const UpdateProduct = () => {
                 errors={errors}
                 isRequired={true}
                 defaultValue={getValues('descripcion')}
+                setValue={setValue}
               />
               {/* Product Price */}
               <Input
+                type='number'
                 label='Precio'
                 name='precio'
                 register={register}
                 errors={errors}
                 isRequired={true}
                 defaultValue={getValues('precio')}
+                setValue={setValue}
               />
               {/* Ingredient Input */}
               <Input
@@ -170,6 +178,7 @@ const UpdateProduct = () => {
                 onKeyDown={agregarIngrediente}
                 // value={currentIngredient}
                 defaultValue={getValues('ingredientes')}
+                setValue={setValue}
               />
               {/* Lista de ingredientes en forma de burbujas */}
               <div className='mb-4'>
@@ -200,45 +209,17 @@ const UpdateProduct = () => {
                 isRequired={true}
                 defaultValue={getValues('categoria')}
               /> */}
-              <div className='relative inline-block w-full'>
-                <select
-                  {...register('categoria', { required: true })}
-                  value={categorias}
-                  onChange={(e) => {
-                    setCategorias(e.target.value);
-                    setCategoriaError('');
-                  }}
-                  className='block appearance-none w-full bg-transparent border border-primary-50 hover:border-primary-50 text-primary-100 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline'
-                >
-                  <option value='Seleccionar categoría' disabled>
-                    Seleccionar categoría
-                  </option>
-                  <option value='crepes'>Crepes</option>
-                  <option value='waffles'>Waffles</option>
-                  <option value='bebidas'>Bebidas</option>
-                </select>
-                <div className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
-                  <svg
-                    className='w-5 h-5 text-primary-100'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth='2'
-                      d='M19 9l-7 7-7-7'
-                    ></path>
-                  </svg>
-                </div>
-              </div>
 
-              {categoriaError && (
-                <span className='text-red-500 text-xs italic'>{categoriaError}</span>
-              )}
+              <SelectCategory
+                value={categorias}
+                onChange={(e) => {
+                  setCategorias(e.target.value);
+                  setCategoriaError('');
+                }}
+                error={categoriaError}
+              />
               {/* Product Subcategory */}
+
               <Input
                 label='Subcategoria'
                 name='subcategoria'
@@ -246,6 +227,8 @@ const UpdateProduct = () => {
                 errors={errors}
                 isRequired={true}
                 defaultValue={getValues('subcategoria')}
+                setValue={setValue}
+                className='capitalize'
               />
               {/* Product Availability */}
               <div className='mb-4'>

@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import SearchForm from '../components/forms/SearchForm';
 import Overview from '../components/Overview';
+import { useCategory } from '../context/useCategory';
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const selectRef = useRef(null);
+  const { categories, getCategories } = useCategory();
+  const getCategoriesRef = useRef(getCategories);
+  useEffect(() => {
+    getCategoriesRef.current();
+  }, []);
 
   const options = [
     { value: '', label: 'Selecciona una categoría' },
@@ -75,6 +81,13 @@ const Home = () => {
           )}
         </div>
       </div>
+      <select>
+        {categories.map((option) => (
+          <option key={option._id} value={option.nombre}>
+            {option.nombre}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import {
   addProduct,
   getProduct,
+  getProductAvailable,
   updateProduct,
   deleteProduct,
   // getProductAvaliable,
@@ -11,6 +12,7 @@ export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [errors, setErrors] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +25,15 @@ export const ProductProvider = ({ children }) => {
       setProduct(res.data.docs);
       setTotalPages(res.data.totalPages);
       setCurrentPage(page);
+    } catch (error) {
+      // console.log(error.response.data.error);
+    }
+  };
+
+  const getProductsAvailable = async () => {
+    try {
+      const res = await getProductAvailable();
+      setProducts(res.data);
     } catch (error) {
       // console.log(error.response.data.error);
     }
@@ -43,7 +54,7 @@ export const ProductProvider = ({ children }) => {
       // console.log(res);
       if (res.status === 200) setSuccessMessage('¡Los datos se guardaron correctamente!');
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
       }
@@ -67,7 +78,7 @@ export const ProductProvider = ({ children }) => {
       // console.log(res);
       if (res.status === 200) setSuccessMessage('¡Los datos se guardaron correctamente!');
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
       }
@@ -82,7 +93,7 @@ export const ProductProvider = ({ children }) => {
       console.log(res);
       if (res.status === 200) setSuccessMessage('¡Los datos se eliminaron correctamente!');
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
       }
@@ -113,11 +124,13 @@ export const ProductProvider = ({ children }) => {
     <ProductContext.Provider
       value={{
         product,
+        getProducts,
         createProduct,
         updateProductById,
         deleteProductById,
         errors,
-        getProducts,
+        products,
+        getProductsAvailable,
         successMessage,
         currentPage,
         totalPages,

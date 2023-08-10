@@ -1,18 +1,32 @@
 import { useState } from 'react';
 
-const Input = ({ type, label, name, errors, register, isRequired, onKeyDown, defaultValue }) => {
+const Input = ({
+  type,
+  label,
+  name,
+  errors,
+  register,
+  isRequired,
+  onKeyDown,
+  defaultValue,
+  setValue,
+  className,
+}) => {
   const [inputValue, setInputValue] = useState(defaultValue || '');
 
   const handleFocus = (e) => {
     const value = e.target.value;
     setInputValue(value);
+    setValue(name, value);
   };
 
   const handleNumberInput = (e) => {
     const value = e.target.value;
-    setInputValue(value.replace(/[^0-9.]/g, ''));
-    if (value >= 0.01) {
-      setInputValue(value);
+    const formattedValue = value.replace(/[^0-9.]/g, '');
+    setInputValue(formattedValue);
+    setValue(name, formattedValue);
+    if (formattedValue >= 0.01) {
+      setInputValue(formattedValue);
     }
   };
   const handleKeyDown = (e) => {
@@ -28,10 +42,10 @@ const Input = ({ type, label, name, errors, register, isRequired, onKeyDown, def
         <input
           type={type === 'number' ? 'text' : type}
           {...register(name, { required: isRequired })}
-          className='w-full bg-transparent py-2 outline-none text-complementary-100'
+          className={`w-full bg-transparent py-2 outline-none text-complementary-100 ${className}`}
           autoComplete='off'
           inputMode={type === 'number' ? 'number' : 'text'}
-          value={inputValue}
+          // value={inputValue}
           onInput={type === 'number' ? handleNumberInput : handleFocus}
           onKeyDown={handleKeyDown}
         />

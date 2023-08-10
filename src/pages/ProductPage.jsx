@@ -47,13 +47,16 @@ const ProductPage = () => {
   };
 
   return (
-    <div className='w-full flex flex-col gap-4 justify-center pt-2'>
-      <h1 className='px-4 text-xl text-complementary-100 font-bold uppercase'>
+    <div className='w-full flex flex-col gap-4 justify-center py-8'>
+      <h1 className='px-4 text-3xl text-complementary-100 font-bold uppercase'>
         Lista de productos
       </h1>
       <div className='flex flex-col w-full gap-2 px-4 py-2 justify-center'>
         {product.map((item) => (
-          <div key={item._id} className='flex flex-row bg-primary-10 gap-4 py-2 px-2'>
+          <div
+            key={item._id}
+            className='flex flex-row bg-primary-10 gap-4 py-2 px-2 animate-zoom-in'
+          >
             <div className='w-[100px] max-w-[100px] h-[60px] flex justify-center'>
               <img
                 src={item.imagen.secure_url}
@@ -62,7 +65,7 @@ const ProductPage = () => {
               />
             </div>
             <div className='flex flex-col w-full justify-center'>
-              <h2 className='font-bold uppercase text-complementary-100'>{item.nombre}</h2>
+              <h6 className='font-bold uppercase text-complementary-100'>{item.nombre}</h6>
               <p className='text-complementary-50'>{item.categoria}</p>
             </div>
 
