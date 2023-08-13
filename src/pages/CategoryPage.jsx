@@ -51,9 +51,9 @@ const CategoryPage = () => {
   }
   return (
     <div className='grid grid-cols-2 gap-4 py-8'>
-      <div className='w-full flex flex-col gap-4 justify-center pt-2 '>
+      <div className='w-full flex flex-col gap-4 justify-start pt-2'>
         <div className='flex flex-row justify-between px-4 py-2'>
-          <h1 className='px-4 text-3xl text-complementary-100 font-bold uppercase'>
+          <h1 className='text-3xl text-complementary-100 font-bold uppercase'>
             Lista de Categorías
           </h1>
           <button

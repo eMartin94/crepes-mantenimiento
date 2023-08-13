@@ -128,8 +128,8 @@ const UpdateProduct = () => {
   };
 
   return (
-    <div className='flex flex-wrap justify-center py-8 animate-zoom-in'>
-      <div className='bg-primary-10 shadow-md rounded px-8 pt-6 pb-8 w-full'>
+    <div className='flex flex-wrap justify-center py-2 animate-zoom-in'>
+      <div className='bg-primary-10 shadow-md rounded px-8 pt-2 w-full'>
         <h4 className='text-2xl font-bold mb-4 uppercase text-complementary-100'>
           editar producto
         </h4>

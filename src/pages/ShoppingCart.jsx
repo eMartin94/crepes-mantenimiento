@@ -11,7 +11,7 @@ const ShoppingCart = () => {
     getAllCartsRef.current();
     getProductsAvailableRef.current();
   }, []);
-
+  console.log(cart);
   const productMap = new Map(
     products.map((item) => [item._id, { nombre: item.nombre, precio: item.precio }])
   );

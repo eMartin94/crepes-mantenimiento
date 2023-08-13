@@ -11,6 +11,7 @@ const Input = ({
   defaultValue,
   setValue,
   className,
+  disabled,
 }) => {
   const [inputValue, setInputValue] = useState(defaultValue || '');
 
@@ -42,17 +43,18 @@ const Input = ({
         <input
           type={type === 'number' ? 'text' : type}
           {...register(name, { required: isRequired })}
-          className={`w-full bg-transparent py-2 outline-none text-complementary-100 ${className}`}
+          className={`w-full bg-transparent py-1 outline-none text-complementary-100 ${className}`}
           autoComplete='off'
           inputMode={type === 'number' ? 'number' : 'text'}
           // value={inputValue}
           onInput={type === 'number' ? handleNumberInput : handleFocus}
           onKeyDown={handleKeyDown}
+          disabled={disabled}
         />
         <label
           className={`absolute left-0 uppercase tracking-wider pointer-events-none transition-all duration-200 ease-linear ${
             inputValue || defaultValue
-              ? '-top-5 text-xs text-primary-100'
+              ? '-top-4 text-xs text-primary-100'
               : 'text-sm top-2 md:text-base text-primary-50'
           }`}
         >

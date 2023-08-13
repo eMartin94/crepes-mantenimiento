@@ -19,7 +19,7 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/product');
+    if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
   return (

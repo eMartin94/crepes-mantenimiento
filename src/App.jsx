@@ -11,6 +11,9 @@ import AdminProtectedRoutes from './AdminProtectedRoutes';
 import Sidebar from './components/Sidebar';
 import CategoryPage from './pages/CategoryPage';
 import ShoppingCart from './pages/ShoppingCart';
+import UserPage from './pages/UserPage';
+import SellerProtectedRoutes from './SellerProtectedRoutes';
+import OrderPage from './pages/OrderPage';
 
 export default function App() {
   return (
@@ -20,7 +23,7 @@ export default function App() {
         <Sidebar />
       </header>
       <main className='min-w-[calc(100%-250px)] h-full ml:0 sm:ml-[60px] md:ml-[250px] w-full'>
-        <section className='w-full h-full min-h-[calc(100vh-50px)] px-8 py-4 flex flex-col gap-4'>
+        <section className='w-full h-full min-h-[calc(100vh-50px)] px-8 py-3 flex flex-col gap-4'>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
@@ -32,8 +35,12 @@ export default function App() {
               <Route path='/profile' element={<ProfilePage />} />
             </Route>
             <Route element={<AdminProtectedRoutes />}>
+              <Route path='/user' element={<UserPage />} />
               <Route path='/product/create' element={<CreateProduct />} />
               <Route path='/product/update/:productId' element={<UpdateProduct />} />
+            </Route>
+            <Route element={<SellerProtectedRoutes />}>
+              <Route path='/order' element={<OrderPage />} />
             </Route>
           </Routes>
         </section>

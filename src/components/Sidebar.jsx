@@ -6,6 +6,7 @@ import {
   FaPlusCircle,
   FaSignOutAlt,
   FaUserCircle,
+  FaUserEdit,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
@@ -13,7 +14,7 @@ import { useState } from 'react';
 
 const Sidebar = () => {
   const { isAuthenticated, logout, user } = useAuth();
-  const [activeItem, setActiveItem] = useState('home');
+  const [activeItem, setActiveItem] = useState('');
 
   const handleItemClick = (item) => {
     setActiveItem(item);
@@ -29,7 +30,7 @@ const Sidebar = () => {
           <li
             className={`${
               activeItem === 'home' ? 'bg-complementary-100 text-paragraph' : ''
-            } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
+            } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph transition-all duration-300 ease-in-out`}
           >
             <Link
               to='/'
@@ -40,28 +41,27 @@ const Sidebar = () => {
               <span className='hidden md:block'>Home</span>
             </Link>
           </li>
-          {isAuthenticated && (
-            <li
-              className={`${
-                activeItem === 'product' ? 'bg-complementary-100 text-paragraph' : ''
-              } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
-            >
-              <Link
-                to={isAuthenticated ? '/product' : '/'}
-                className='pl-4 md:pl-8 pr-4 w-full flex flex-row gap-2 py-2 items-center'
-                onClick={() => handleItemClick('product')}
-              >
-                <FaBox className='text-xl' />
-                <span className='hidden md:block'>Productos</span>
-              </Link>
-            </li>
-          )}
+
           {isAuthenticated && user.role === 'administrator' && (
             <>
               <li
                 className={`${
+                  activeItem === 'admin' ? 'bg-complementary-100 text-paragraph' : ''
+                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph transition-all duration-300 ease-in-out`}
+              >
+                <Link
+                  to='/user'
+                  className='pl-4 md:pl-8 pr-4 w-full flex flex-row gap-2 py-2 items-center'
+                  onClick={() => handleItemClick('admin')}
+                >
+                  <FaUserEdit className='text-xl' />
+                  <span className='hidden md:block'>Administrar usuario</span>
+                </Link>
+              </li>
+              <li
+                className={`${
                   activeItem === 'create' ? 'bg-complementary-100 text-paragraph' : ''
-                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
+                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph transition-all duration-300 ease-in-out`}
               >
                 <Link
                   to='/product/create'
@@ -75,7 +75,7 @@ const Sidebar = () => {
               <li
                 className={`${
                   activeItem === 'categories' ? 'bg-complementary-100 text-paragraph' : ''
-                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
+                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph transition-all duration-300 ease-in-out`}
               >
                 <Link
                   to='/category'
@@ -86,13 +86,45 @@ const Sidebar = () => {
                   <span className='hidden md:block'>Categorías</span>
                 </Link>
               </li>
+            </>
+          )}
+          {isAuthenticated && (user.role === 'administrator' || user.role === 'seller') && (
+            <>
+              <li
+                className={`${
+                  activeItem === 'product' ? 'bg-complementary-100 text-paragraph' : ''
+                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
+              >
+                <Link
+                  to={isAuthenticated ? '/product' : '/'}
+                  className='pl-4 md:pl-8 pr-4 w-full flex flex-row gap-2 py-2 items-center'
+                  onClick={() => handleItemClick('product')}
+                >
+                  <FaBox className='text-xl' />
+                  <span className='hidden md:block'>Productos</span>
+                </Link>
+              </li>
+              <li
+                className={`${
+                  activeItem === 'order' ? 'bg-complementary-100 text-paragraph' : ''
+                } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
+              >
+                <Link
+                  to={isAuthenticated ? '/order' : '/'}
+                  className='pl-4 md:pl-8 pr-4 w-full flex flex-row gap-2 py-2 items-center'
+                  onClick={() => handleItemClick('order')}
+                >
+                  <FaCartArrowDown className='text-xl' />
+                  <span className='hidden md:block'>Pedidos</span>
+                </Link>
+              </li>
               <li
                 className={`${
                   activeItem === 'cart' ? 'bg-complementary-100 text-paragraph' : ''
                 } hover:bg-complementary-100 justify-center items-center text-complementary-100 hover:text-paragraph`}
               >
                 <Link
-                  to='/cart'
+                  to={isAuthenticated ? '/cart' : '/'}
                   className='pl-4 md:pl-8 pr-4 w-full flex flex-row gap-2 py-2 items-center'
                   onClick={() => handleItemClick('cart')}
                 >

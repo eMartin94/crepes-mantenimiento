@@ -7,19 +7,25 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import { ProductProvider } from './context/ProductContext.jsx';
 import { CategoryProvider } from './context/CategoryContext.jsx';
 import { CartProvider } from './context/CartContext.jsx';
+import { UserProvider } from './context/UserContext.jsx';
+import { OrderProvider } from './context/OrderContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <ProductProvider>
-        <CategoryProvider>
-          <CartProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CartProvider>
-        </CategoryProvider>
-      </ProductProvider>
+      <UserProvider>
+        <ProductProvider>
+          <CategoryProvider>
+            <CartProvider>
+              <OrderProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </OrderProvider>
+            </CartProvider>
+          </CategoryProvider>
+        </ProductProvider>
+      </UserProvider>
     </AuthProvider>
   </React.StrictMode>
 );

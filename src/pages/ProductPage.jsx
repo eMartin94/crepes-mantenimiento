@@ -47,7 +47,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className='w-full flex flex-col gap-4 justify-center py-8'>
+    <div className='w-full flex flex-col gap-4 justify-center py-2'>
       <h1 className='px-4 text-3xl text-complementary-100 font-bold uppercase'>
         Lista de productos
       </h1>

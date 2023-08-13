@@ -35,6 +35,7 @@ export const CategoryProvider = ({ children }) => {
     try {
       const res = await updateCategory(id, category);
       setCategories(categories.map((c) => (c._id === category._id ? res.data : c)));
+      if (res.status === 200) setSuccessMessage('¡Los datos se guardaron correctamente!');
     } catch (error) {
       console.log(error.response.data);
       if (Array.isArray(error.response.data)) {
